@@ -27,9 +27,9 @@ const Courses = () => {
       <main className="pt-24">
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 text-center">
-            <AnimatedText text="Our Language Programs" className="text-4xl md:text-6xl font-display font-bold text-charcoal" as="h1" />
+            <AnimatedText text="Our Language Programs" className="text-3xl sm:text-4xl md:text-6xl font-display font-bold text-charcoal" as="h1" />
             <motion.div
-              className="flex justify-center gap-3 mt-6 text-3xl"
+              className="flex justify-center gap-3 mt-6 text-2xl sm:text-3xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}

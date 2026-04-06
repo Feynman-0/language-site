@@ -62,8 +62,8 @@ const Gallery = () => {
     <PageTransition>
       <Navbar />
       <main className="pt-24">
-        <section className="py-20 bg-background text-center">
-          <AnimatedText text="Gallery" className="text-4xl md:text-6xl font-display font-bold text-charcoal" as="h1" />
+        <section className="py-20 bg-background text-center px-4">
+          <AnimatedText text="Gallery" className="text-3xl sm:text-4xl md:text-6xl font-display font-bold text-charcoal" as="h1" />
         </section>
 
         <section className="py-8 bg-ivory min-h-[60vh]">

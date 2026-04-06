@@ -22,8 +22,8 @@ const Events = () => (
   <PageTransition>
     <Navbar />
     <main className="pt-24">
-      <section className="py-20 bg-background text-center">
-        <AnimatedText text="Events & Workshops" className="text-4xl md:text-6xl font-display font-bold text-charcoal" as="h1" />
+      <section className="py-20 bg-background text-center px-4">
+        <AnimatedText text="Events & Workshops" className="text-3xl sm:text-4xl md:text-6xl font-display font-bold text-charcoal leading-tight" as="h1" />
         <motion.p
           className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto font-body"
           initial={{ opacity: 0 }}
@@ -42,8 +42,8 @@ const Events = () => (
           </ScrollReveal>
           <div className="grid md:grid-cols-3 gap-6">
             {upcomingEvents.map((event, i) => (
-              <ScrollReveal key={i} delay={i * 0.12}>
-                <div className="bg-background rounded-lg p-6 border-2 border-gold/30 animate-pulse-border h-full flex flex-col">
+              <ScrollReveal key={i} delay={i * 0.12} className="h-full">
+                <div className="bg-background rounded-lg p-6 border-2 border-gold/30 animate-pulse-border h-full flex flex-col min-h-[160px]">
                   <div className="flex items-center gap-2 mb-4">
                     <Tag size={14} className="text-gold" />
                     <span className="text-xs font-body text-gold font-medium uppercase">{event.category}</span>

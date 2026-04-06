@@ -31,8 +31,8 @@ const EmpoweringNation = () => (
             transition={{ duration: 6, delay: i * 0.7, repeat: Infinity, ease: "easeOut" }}
           />
         ))}
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <AnimatedText text="Empowering Nation" className="text-5xl md:text-7xl font-display font-bold text-charcoal" as="h1" />
+        <div className="container mx-auto px-4 text-center relative z-10 px-4">
+          <AnimatedText text="Empowering Nation" className="text-3xl sm:text-4xl md:text-7xl font-display font-bold text-charcoal leading-tight" as="h1" />
           <motion.p
             className="mt-6 text-xl text-muted-foreground font-body max-w-xl mx-auto"
             initial={{ opacity: 0 }}

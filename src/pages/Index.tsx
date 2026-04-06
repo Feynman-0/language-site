@@ -70,9 +70,9 @@ const Home = () => (
         </div>
 
         <div className="container mx-auto px-4 text-center relative z-10 pt-20">
-          <AnimatedText text="Learn Languages." className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-charcoal mb-2" as="h1" />
-          <AnimatedText text="Explore Cultures." className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-gold mb-2" as="h1" delay={0.5} />
-          <AnimatedText text="Empower Lives." className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-charcoal" as="h1" delay={1} />
+          <AnimatedText text="Learn Languages." className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-display font-bold text-charcoal mb-2" as="h1" />
+          <AnimatedText text="Explore Cultures." className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-display font-bold text-gold mb-2" as="h1" delay={0.5} />
+          <AnimatedText text="Empower Lives." className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-display font-bold text-charcoal" as="h1" delay={1} />
 
           <motion.p
             className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-body"
@@ -133,11 +133,11 @@ const Home = () => (
               Our Language Programs
             </h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 content-stretch">
             {languages.map((lang, i) => (
-              <ScrollReveal key={lang.name} delay={i * 0.1}>
+              <ScrollReveal key={lang.name} delay={i * 0.1} className="h-full">
                 <motion.div
-                  className="relative p-6 rounded-lg bg-ivory border border-border hover:shadow-lg transition-all group cursor-pointer overflow-hidden h-full flex flex-col"
+                  className="relative p-6 rounded-lg bg-ivory border border-border hover:shadow-lg transition-all group cursor-pointer overflow-hidden h-full flex flex-col min-h-[160px]"
                   whileHover={{ y: -8 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
