@@ -93,6 +93,30 @@ const EmpoweringNation = () => (
         </div>
       </section>
 
+      {/* Impact Gallery */}
+      <div className="container mx-auto px-4 mb-20">
+        <ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {Object.values(import.meta.glob("../assets/gallery/*.webp", { eager: true, import: "default" })).slice(0, 12).map((src, i) => (
+              <ScrollReveal key={i} delay={i * 0.05}>
+                <motion.div 
+                  className="aspect-square rounded-lg overflow-hidden relative group"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <img src={src as string} alt="Initiative Activity" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gold/10 group-hover:bg-transparent transition-colors" />
+                </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link to="/gallery" className="text-gold font-body font-medium hover:underline inline-flex items-center gap-1">
+              View all {Object.keys(import.meta.glob("../assets/gallery/*.webp")).length} photos in project gallery →
+            </Link>
+          </div>
+        </ScrollReveal>
+      </div>
+
       {/* How It Works */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">

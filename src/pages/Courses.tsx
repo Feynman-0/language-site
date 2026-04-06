@@ -92,7 +92,7 @@ const Courses = () => {
                             ))}
                           </div>
                           <Link
-                            to="/register"
+                            to="/course-registration"
                             className={`inline-flex px-6 py-2 rounded-full bg-${lang.color} text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity`}
                           >
                             Enroll in {lang.name} →
@@ -112,7 +112,7 @@ const Courses = () => {
             <h2 className="text-3xl md:text-4xl font-display font-bold text-charcoal mb-6">
               Ready to start your language journey?
             </h2>
-            <Link to="/register" className="inline-flex px-8 py-3 rounded-full bg-gold text-primary-foreground font-medium animate-shimmer bg-gradient-to-r from-gold via-gold/80 to-gold bg-[length:200%_auto] hover:bg-gold/90 transition-colors">
+            <Link to="/course-registration" className="inline-flex px-8 py-3 rounded-full bg-gold text-primary-foreground font-medium animate-shimmer bg-gradient-to-r from-gold via-gold/80 to-gold bg-[length:200%_auto] hover:bg-gold/90 transition-colors">
               Register Now →
             </Link>
           </ScrollReveal>

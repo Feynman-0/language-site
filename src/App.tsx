@@ -13,6 +13,7 @@ import Gallery from "./pages/Gallery";
 import EmpoweringNation from "./pages/EmpoweringNation";
 import Contact from "./pages/Contact";
 import Register from "./pages/Register";
+import CourseRegistration from "./pages/CourseRegistration";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const AnimatedRoutes = () => {
         <Route path="/empowering-nation" element={<EmpoweringNation />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/course-registration" element={<CourseRegistration />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>

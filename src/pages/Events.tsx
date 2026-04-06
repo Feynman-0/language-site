@@ -43,13 +43,13 @@ const Events = () => (
           <div className="grid md:grid-cols-3 gap-6">
             {upcomingEvents.map((event, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
-                <div className="bg-background rounded-lg p-6 border-2 border-gold/30 animate-pulse-border">
+                <div className="bg-background rounded-lg p-6 border-2 border-gold/30 animate-pulse-border h-full flex flex-col">
                   <div className="flex items-center gap-2 mb-4">
                     <Tag size={14} className="text-gold" />
                     <span className="text-xs font-body text-gold font-medium uppercase">{event.category}</span>
                   </div>
                   <h3 className="font-display font-semibold text-xl text-charcoal mb-2">{event.title}</h3>
-                  <p className="text-sm text-muted-foreground font-body italic">Details coming soon</p>
+                  <p className="text-sm text-muted-foreground font-body italic flex-grow">Details coming soon</p>
                 </div>
               </ScrollReveal>
             ))}

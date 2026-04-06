@@ -137,7 +137,7 @@ const Home = () => (
             {languages.map((lang, i) => (
               <ScrollReveal key={lang.name} delay={i * 0.1}>
                 <motion.div
-                  className="relative p-6 rounded-lg bg-ivory border border-border hover:shadow-lg transition-all group cursor-pointer overflow-hidden"
+                  className="relative p-6 rounded-lg bg-ivory border border-border hover:shadow-lg transition-all group cursor-pointer overflow-hidden h-full flex flex-col"
                   whileHover={{ y: -8 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -149,7 +149,7 @@ const Home = () => (
                   />
                   <span className="text-3xl mb-3 block">{lang.flag}</span>
                   <h3 className={`font-display font-semibold text-lg text-${lang.color}`}>{lang.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-1 font-body">{lang.tagline}</p>
+                  <p className="text-sm text-muted-foreground mt-1 font-body flex-grow">{lang.tagline}</p>
                   <Link to="/courses" className={`mt-3 inline-block text-sm text-${lang.color} font-medium hover:underline`}>
                     View Program →
                   </Link>
@@ -232,12 +232,12 @@ const Home = () => (
           <div className="grid md:grid-cols-3 gap-6">
             {["The Art of Learning French", "Understanding Arabic Calligraphy", "Why Multilingualism Matters"].map((title, i) => (
               <ScrollReveal key={i} delay={i * 0.15}>
-                <div className="bg-ivory rounded-lg p-6 border border-border hover:shadow-md transition-shadow">
+                <div className="bg-ivory rounded-lg p-6 border border-border hover:shadow-md transition-shadow h-full flex flex-col">
                   <div className="h-40 bg-muted rounded-md mb-4 flex items-center justify-center">
                     <span className="text-muted-foreground text-sm font-body">Coming Soon</span>
                   </div>
                   <h3 className="font-display font-semibold text-lg text-charcoal">{title}</h3>
-                  <p className="text-sm text-muted-foreground mt-2 font-body">Exploring language and culture through stories that connect us all.</p>
+                  <p className="text-sm text-muted-foreground mt-2 font-body flex-grow">Exploring language and culture through stories that connect us all.</p>
                 </div>
               </ScrollReveal>
             ))}

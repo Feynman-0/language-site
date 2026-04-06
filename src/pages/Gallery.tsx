@@ -10,9 +10,46 @@ import empImg2 from "@/assets/empowering-nation-2.jpg";
 
 const tabs = ["All", "Empowering Nation", "Events", "Classes"];
 
+const galleryImages = import.meta.glob("../assets/gallery/*.webp", { eager: true, import: 'default' });
+const sortedPaths = Object.keys(galleryImages).sort((a, b) => {
+  const numA = parseInt(a.split('-')[1]);
+  const numB = parseInt(b.split('-')[1]);
+  return numA - numB;
+});
+
+const additionalItems = sortedPaths.map((path, i) => {
+  const src = galleryImages[path];
+  const fileNumber = i + 1; // 1-indexed for comparison with user's gallery-X
+  
+  let tab = "Empowering Nation";
+  let caption = "Community Initiative — Empowering Nation";
+  
+  // Specific categorization based on user feedback
+  if (fileNumber >= 14 && fileNumber <= 22) {
+    tab = "Classes";
+    caption = "Learning Session — Language Classes";
+  } else if (fileNumber >= 23 && fileNumber <= 35) {
+    tab = "Events";
+    caption = "Society Event — Cultural Gatherings";
+  } 
+  
+  // Especially ensure gallery-41 and gallery-6 are not in classes
+  if (fileNumber === 41 || fileNumber === 6) {
+    tab = "Empowering Nation";
+    caption = "Distribution Drive — Community Support";
+  }
+  
+  return {
+    src: src as string,
+    caption,
+    tab
+  };
+});
+
 const galleryItems = [
   { src: empImg1, caption: "Distribution Drive — Empowering Nation Initiative", tab: "Empowering Nation" },
   { src: empImg2, caption: "Education Access Visit — School Support Program", tab: "Empowering Nation" },
+  ...additionalItems
 ];
 
 const Gallery = () => {
@@ -65,14 +102,6 @@ const Gallery = () => {
                 </ScrollReveal>
               ))}
 
-              {/* Placeholder cards */}
-              {[1, 2, 3].map((n) => (
-                <ScrollReveal key={`ph-${n}`} delay={0.3 + n * 0.1}>
-                  <div className="break-inside-avoid rounded-lg bg-muted h-48 flex items-center justify-center">
-                    <span className="text-muted-foreground font-body text-sm">More photos coming soon</span>
-                  </div>
-                </ScrollReveal>
-              ))}
             </div>
           </div>
         </section>

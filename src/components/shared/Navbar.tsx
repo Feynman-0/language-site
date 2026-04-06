@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaFacebook } from "react-icons/fa";
 import { Menu, X } from "lucide-react";
 import GlobeSvg from "./GlobeSvg";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { path: "/", label: "Home" },
   { path: "/about", label: "About" },
   { path: "/courses", label: "Courses" },
+  { path: "/course-registration", label: "Registration" },
   { path: "/events", label: "Events" },
   { path: "/blog", label: "Blog" },
   { path: "/gallery", label: "Gallery" },
@@ -91,8 +93,9 @@ const Navbar = () => {
             >
               <FaFacebook size={18} />
             </a>
+            <ThemeToggle />
             <Link
-              to="/register"
+              to="/course-registration"
               className="hidden md:inline-flex items-center px-5 py-2 rounded-full bg-gold text-primary-foreground text-sm font-medium hover:bg-gold/90 transition-colors animate-shimmer bg-gradient-to-r from-gold via-gold/80 to-gold"
             >
               Enroll Now
@@ -119,9 +122,12 @@ const Navbar = () => {
           >
             <div className="flex items-center justify-between p-4">
               <span className="font-display font-bold text-lg text-charcoal">Menu</span>
-              <button onClick={() => setMobileOpen(false)}>
-                <X size={24} />
-              </button>
+              <div className="flex items-center gap-4">
+                <ThemeToggle />
+                <button onClick={() => setMobileOpen(false)}>
+                  <X size={24} />
+                </button>
+              </div>
             </div>
             <div className="flex flex-col items-center justify-center flex-1 gap-6">
               {navLinks.map((link, i) => (
@@ -147,7 +153,7 @@ const Navbar = () => {
                 transition={{ delay: 0.7 }}
               >
                 <Link
-                  to="/register"
+                  to="/course-registration"
                   className="mt-4 inline-flex px-8 py-3 rounded-full bg-gold text-primary-foreground font-medium"
                 >
                   Enroll Now
