@@ -160,3 +160,84 @@
 .animate-globe {
   animation: globe-rotate 20s linear infinite;
 }
+
+/* Tiptap Styles */
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  font-style: italic;
+}
+
+.tiptap table {
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 100%;
+  margin: 2rem 0;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+}
+
+.tiptap table td,
+.tiptap table th {
+  min-width: 1em;
+  border: 1px solid hsl(var(--border));
+  padding: 12px 16px;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.tiptap table th {
+  font-weight: bold;
+  text-align: left;
+  background-color: hsl(var(--ivory));
+  color: hsl(var(--gold));
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.tiptap table .selectedCell:after {
+  z-index: 2;
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: hsla(var(--gold), 0.1);
+  pointer-events: none;
+}
+
+.tiptap table .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: -2px;
+  width: 4px;
+  background-color: hsl(var(--gold));
+  pointer-events: none;
+}
+
+.tiptap .tableWrapper {
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.tiptap blockquote {
+  border-left: 4px solid hsl(var(--gold));
+  padding-left: 2rem;
+  font-style: italic;
+  color: hsl(var(--gold));
+  margin: 2rem 0;
+}
+
+.tiptap img {
+  transition: all 0.3s ease;
+}
+
+.tiptap img:hover {
+  transform: scale(1.02);
+}

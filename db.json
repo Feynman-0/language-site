@@ -1,0 +1,23 @@
+{
+  "blogs": [
+    {
+      "id": "1",
+      "title": "Why Multilingualism Is the Future of Communication",
+      "author_name": "Admin",
+      "content": "In an increasingly connected world, the ability to speak multiple languages opens doors...",
+      "status": "approved",
+      "created_at": "2024-03-20T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "title": "5 Tips to Master French Pronunciation",
+      "author_name": "Admin",
+      "content": "French pronunciation can be tricky, but with these simple techniques...",
+      "status": "approved",
+      "created_at": "2024-03-21T12:00:00.000Z"
+    }
+  ],
+  "admin": {
+    "password": "admin123"
+  }
+}

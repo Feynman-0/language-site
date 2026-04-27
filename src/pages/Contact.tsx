@@ -50,13 +50,36 @@ const FloatingInput = ({ label, type = "text", name }: { label: string; type?: s
   );
 };
 
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+
 const Contact = () => {
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => setSending(false), 2000);
+    
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      subject: formData.get("subject") as string,
+      message: formData.get("message") as string,
+    };
+
+    try {
+      const { error } = await supabase.from("contacts").insert([data]);
+      if (error) throw error;
+      
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (

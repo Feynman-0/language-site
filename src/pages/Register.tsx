@@ -11,9 +11,13 @@ const languages = ["French", "English", "German", "Urdu", "Arabic"];
 const levels = ["A1 - Beginner", "A2 - Elementary", "B1 - Intermediate", "B2 - Upper-Intermediate"];
 const hearAbout = ["Social Media", "Friend/Family", "Google Search", "Event", "Other"];
 
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+
 const Register = () => {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: "", email: "", phone: "", country: "",
     language: "", level: "", hearAbout: "",
@@ -22,9 +26,29 @@ const Register = () => {
 
   const update = (field: string, value: string | boolean) => setForm((p) => ({ ...p, [field]: value }));
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.from("registrations").insert([{
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        country: form.country,
+        language: form.language,
+        level: form.level,
+        hear_about: form.hearAbout,
+      }]);
+
+      if (error) throw error;
+
+      setSubmitted(true);
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+    } catch (error) {
+      console.error("Error submitting registration:", error);
+      toast.error("Failed to submit enrollment. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass = "w-full bg-transparent border-b-2 border-border focus:border-gold outline-none py-2 px-1 font-body text-charcoal transition-colors";
@@ -189,10 +213,18 @@ const Register = () => {
                       </button>
                       <button
                         onClick={handleSubmit}
-                        disabled={!form.agreed}
-                        className="flex-1 py-3 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition-colors disabled:opacity-50"
+                        disabled={!form.agreed || isSubmitting}
+                        className="flex-1 py-3 rounded-full bg-gold text-primary-foreground font-medium hover:bg-gold/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                       >
-                        Submit Enrollment
+                        {isSubmitting ? (
+                          <motion.div
+                            className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                        ) : (
+                          "Submit Enrollment"
+                        )}
                       </button>
                     </div>
                   </motion.div>

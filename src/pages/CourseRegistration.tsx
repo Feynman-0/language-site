@@ -19,9 +19,13 @@ const languages = [
 const levels = ["A1 - Beginner", "A2 - Elementary", "B1 - Intermediate", "B2 - Upper-Intermediate", "C1 - Advanced"];
 const batches = ["Morning (09:00 - 11:00)", "Afternoon (14:00 - 16:00)", "Evening (18:00 - 20:00)", "Weekend Intensive"];
 
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+
 const CourseRegistration = () => {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -36,15 +40,36 @@ const CourseRegistration = () => {
   const update = (field: string, value: string | boolean) => 
     setForm((p) => ({ ...p, [field]: value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#D4AF37', '#0a1120', '#FFFFFF']
-    });
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.from("registrations").insert([{
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        language: form.language,
+        level: form.level,
+        batch: form.batch,
+        comments: form.comments,
+      }]);
+
+      if (error) throw error;
+
+      setSubmitted(true);
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#D4AF37', '#0a1120', '#FFFFFF']
+      });
+    } catch (error) {
+      console.error("Error submitting registration:", error);
+      toast.error("Failed to submit application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass = "w-full bg-transparent border-b-2 border-border focus:border-gold outline-none py-3 px-1 font-body text-charcoal transition-all placeholder:text-muted-foreground/50";
@@ -332,10 +357,18 @@ const CourseRegistration = () => {
                                   </button>
                                   <button
                                     type="submit"
-                                    disabled={!form.agreed}
-                                    className="flex-2 py-4 px-8 rounded-xl bg-gold text-primary-foreground font-bold hover:shadow-lg transition-all disabled:opacity-50 disabled:grayscale"
+                                    disabled={!form.agreed || isSubmitting}
+                                    className="flex-2 py-4 px-8 rounded-xl bg-gold text-primary-foreground font-bold hover:shadow-lg transition-all disabled:opacity-50 disabled:grayscale flex items-center justify-center gap-2"
                                   >
-                                    Submit Application
+                                    {isSubmitting ? (
+                                      <motion.div
+                                        className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                      />
+                                    ) : (
+                                      "Submit Application"
+                                    )}
                                   </button>
                                 </div>
                               </motion.div>

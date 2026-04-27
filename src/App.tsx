@@ -14,6 +14,10 @@ import EmpoweringNation from "./pages/EmpoweringNation";
 import Contact from "./pages/Contact";
 import Register from "./pages/Register";
 import CourseRegistration from "./pages/CourseRegistration";
+import SubmitBlog from "./pages/SubmitBlog";
+import BlogPost from "./pages/BlogPost";
+import AdminPanel from "./pages/Admin/AdminPanel";
+import AdminLogin from "./pages/Admin/AdminLogin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,11 +32,15 @@ const AnimatedRoutes = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/events" element={<Events />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/empowering-nation" element={<EmpoweringNation />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/course-registration" element={<CourseRegistration />} />
+        <Route path="/submit-blog" element={<SubmitBlog />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
