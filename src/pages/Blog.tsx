@@ -107,7 +107,7 @@ const Blog = () => {
                           </h3>
                           
                           <p className="text-muted-foreground font-body text-sm line-clamp-3 mb-8 leading-relaxed">
-                            {article.content}
+                            {article.content.replace(/<[^>]*>/g, '')}
                           </p>
                           
                           <div className="mt-auto flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-widest border-t border-border pt-6 group-hover:gap-4 transition-all duration-300">

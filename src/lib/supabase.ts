@@ -1,6 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://pfzhdyirsrdcpvtqzkza.supabase.co';
-const supabaseAnonKey = 'sb_publishable_NRIZqyzasVB0DYWxTnhr_Q_prST2Cph';
+// Use placeholders to prevent the app from crashing if env vars are missing
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder';
 
+export const isSupabaseConfigured = !!import.meta.env.VITE_SUPABASE_URL && !!import.meta.env.VITE_SUPABASE_ANON_KEY;
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+
+

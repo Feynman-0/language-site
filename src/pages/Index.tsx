@@ -210,11 +210,11 @@ const Home = () => (
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
               <motion.div
-                className="rounded-lg overflow-hidden shadow-lg"
+                className="rounded-lg overflow-hidden shadow-lg aspect-[4/3]"
                 whileInView={{ y: [20, 0] }}
                 viewport={{ once: true }}
               >
-                <img src={empoweringImg} alt="Empowering Nation distribution drive" className="w-full h-80 object-cover" />
+                <img src={empoweringImg} alt="Empowering Nation distribution drive" className="w-full h-full object-cover object-top" />
               </motion.div>
             </ScrollReveal>
           </div>

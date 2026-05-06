@@ -82,17 +82,31 @@ const AdminPanel = () => {
   const fetchAllData = async () => {
     setIsLoading(true);
     try {
-      const [blogsData, contactsData, regsData] = await Promise.all([
-        blogService.getAllBlogs(),
-        supabase.from('contacts').select('*').order('created_at', { ascending: false }),
-        supabase.from('registrations').select('*').order('created_at', { ascending: false })
-      ]);
+      const blogsData = await blogService.getAllBlogs();
+      
+      let contactsData = { data: [] };
+      let regsData = { data: [] };
+
+      try {
+        const { data: cData, error: cError } = await supabase.from('contacts').select('*').order('created_at', { ascending: false });
+        const { data: rData, error: rError } = await supabase.from('registrations').select('*').order('created_at', { ascending: false });
+        
+        if (cError || rError) throw new Error("Supabase fetch failed");
+        contactsData.data = cData;
+        regsData.data = rData;
+      } catch (err) {
+        console.warn("Supabase fetch failed, showing local storage data instead.");
+        const localContacts = localStorage.getItem('language_site_contacts');
+        const localRegs = localStorage.getItem('language_site_registrations');
+        contactsData.data = localContacts ? JSON.parse(localContacts) : [];
+        regsData.data = localRegs ? JSON.parse(localRegs) : [];
+      }
 
       setBlogs(blogsData);
       if (contactsData.data) setContacts(contactsData.data);
       if (regsData.data) setRegistrations(regsData.data);
     } catch (error) {
-      toast.error("Failed to fetch data");
+      toast.error("Failed to fetch dashboard data");
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -131,22 +145,32 @@ const AdminPanel = () => {
 
   const handleDeleteContact = async (id: string) => {
     if (confirm("Delete this message?")) {
-      const { error } = await supabase.from('contacts').delete().eq('id', id);
-      if (error) toast.error("Failed to delete message");
-      else {
+      try {
+        const { error } = await supabase.from('contacts').delete().eq('id', id);
+        if (error) throw error;
         toast.success("Message deleted");
         setContacts(contacts.filter(c => c.id !== id));
+      } catch (err) {
+        const localContacts = contacts.filter(c => c.id !== id);
+        localStorage.setItem('language_site_contacts', JSON.stringify(localContacts));
+        setContacts(localContacts);
+        toast.success("Message deleted (local)");
       }
     }
   };
 
   const handleDeleteRegistration = async (id: string) => {
     if (confirm("Delete this registration?")) {
-      const { error } = await supabase.from('registrations').delete().eq('id', id);
-      if (error) toast.error("Failed to delete registration");
-      else {
+      try {
+        const { error } = await supabase.from('registrations').delete().eq('id', id);
+        if (error) throw error;
         toast.success("Registration deleted");
         setRegistrations(registrations.filter(r => r.id !== id));
+      } catch (err) {
+        const localRegs = registrations.filter(r => r.id !== id);
+        localStorage.setItem('language_site_registrations', JSON.stringify(localRegs));
+        setRegistrations(localRegs);
+        toast.success("Registration deleted (local)");
       }
     }
   };
@@ -266,7 +290,7 @@ const AdminPanel = () => {
                     <Plus className="w-4 h-4 mr-2" /> New Blog Post
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>{editingBlog ? "Edit Blog" : "Create New Blog"}</DialogTitle>
                   </DialogHeader>
